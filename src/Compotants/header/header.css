@@ -1,0 +1,34 @@
+.navbar h1 {
+  font-size: 27px;
+  font-weight: 800;
+  margin-bottom: 0rem;
+  padding-left: 0rem;
+  color: var(--bs-body-color);
+}
+.navbar p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.navbar {
+  background-color: var(--bg-components);
+  height: 4.4rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding-left: var(--page-padding-left) !important;
+  padding-right: var(--page-padding-right) !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+  }
+  .navbar h1 {
+    font-size: 1rem !important;
+  }
+  .container-fluid .dark-mode-button {
+    width: 6rem;
+    height: 3rem;
+    font-size: 13px;
+  }
+}

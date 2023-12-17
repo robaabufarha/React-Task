@@ -1,0 +1,14 @@
+.border-countries {
+  display: inline;
+}
+
+.border-countries-div {
+  display: inline-block;
+  font-weight: 600;
+  margin-right: 1.3rem;
+  margin-top: 1.3rem;
+}
+.border-countries span {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-components);
+}

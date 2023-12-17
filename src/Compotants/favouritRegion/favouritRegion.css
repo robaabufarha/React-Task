@@ -1,0 +1,20 @@
+.vertical-menu-container .side-container {
+  padding-left: 0.5rem;
+}
+.vertical-menu-container .favourit-container {
+  display: flex;
+  width: 185px !important;
+  align-items: center;
+}
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fav-text {
+  font-size: 20px;
+  font-weight: 800 !important;
+  padding-left: 0.5rem;
+  background-color: var(--bg-components);
+}

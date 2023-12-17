@@ -1,0 +1,4 @@
+.row {
+  --bs-gutter-y: 4rem !important;
+  --bs-gutter-x: 4rem !important;
+}

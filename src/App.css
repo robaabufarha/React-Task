@@ -1,0 +1,32 @@
+:root {
+  --page-padding-left: 5rem;
+  --page-padding-right: 5rem;
+  --bg-all: #fafafa;
+  --bg-components:#ffffff;
+  --dark-mode-icon: #111517;
+  --search-icon-color: #858585;
+  --bs-body-color: #000000;
+  --bg-card: #ffffff;
+  --bs-body-bg: #ffffff;
+  --bg-details: #ffffff;
+  
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.dark-mode {
+  --bg-nav: #2b3945;
+  --bg-card: #2b3945;
+  --bg-all: #202c37;
+  --bg-components:#2b3945;
+  --bg-details: #202c37;
+  --bs-body-color: #ffffff;
+  --search-icon-color: #ffffff;
+  --bs-body-bg: #202c37;
+  
+}
+body {
+  font-family: "Nunito Sans", sans-serif !important;
+  color: var(--bs-body-color) !important;
+}
