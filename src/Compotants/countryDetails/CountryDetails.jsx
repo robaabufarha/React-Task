@@ -3,6 +3,7 @@ import "./countryDetails.css";
 import "../../pages/details/details.css";
 function CountryDetails() {
   return (
+    
     <article className="details-container">
       <div className="left-side">
         <div className="details-info">Native Name:</div> Belgie
@@ -25,6 +26,8 @@ function CountryDetails() {
         <div className="details-info">Langage: </div>Dotch, French, German
       </div>
     </article>
+  
+
   );
 }
 

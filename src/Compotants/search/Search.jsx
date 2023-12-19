@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./search.css";
 
-function Search({ placeholder }) {
+function Search({ placeholder, onSearch }) {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInputChange = (e) => {
-    setSearchValue(e.target.value);
+    const searchTerm = e.target.value;
+    setSearchValue(searchTerm);
+    onSearch(searchTerm); 
   };
 
   return (

@@ -3,11 +3,12 @@ import "./dropdown.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Dropdown } from "react-bootstrap";
 
-const DropdownList = ({ items, defaultLabel = "Filter by" }) => {
-  const [selectedValue, setSelectedValue] = useState("allRegions");
+const DropdownList = ({ items, defaultLabel = "Filter by", onRegionSelect }) => {
+  const [selectedValue, setSelectedValue] = useState("allRegions"); // Add this line
 
   const handleSelect = (eventKey) => {
     setSelectedValue(eventKey);
+    onRegionSelect(eventKey);
   };
 
   return (

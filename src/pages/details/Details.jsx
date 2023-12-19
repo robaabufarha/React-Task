@@ -5,8 +5,9 @@ import CountryDetails from "../../Compotants/countryDetails/CountryDetails";
 import CountryBorders from "../../Compotants/countryBorders/CountryBorders";
 import Button from "../../Compotants/button/Button";
 import { IoIosArrowRoundBack } from "react-icons/io";
-
+import { useParams } from "react-router-dom";
 function Details() {
+  const { id } = useParams();
   return (
     <div className="details-page">
       <div className="back-button-container">

@@ -6,9 +6,9 @@ function Card({ id, src, alt, name, population, region, capital }) {
   return (
     <div className="col col-12 m-0 ">
       <div className="card ">
-        <Link to={"/details"}>
-          <img src={src} className="card-img-top" alt={alt} />
-        </Link>
+      <Link to={`/details/${id}`}>
+        <img src={src} className="card-img-top" alt={alt} />
+      </Link>
         <div className="card-body">
           <h4 className="card-title text-truncate" title={name}>
             {name}
