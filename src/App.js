@@ -8,6 +8,8 @@ import Home from "./pages/home/Home";
 import Details from "./pages/details/Details";
 import NotFound from "./pages/pageNotFound/PageNotFound";
 import "bootstrap/dist/css/bootstrap.css";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,7 +27,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <Header>
         <h1 className="m-0">Where in the world?</h1>
         <Button
@@ -40,11 +42,11 @@ const App = () => {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="details/:id" element={<Details />} />
+          <Route path="/details/:countryName" element={<Details />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
-    </>
+    </DndProvider>
   );
 };
 

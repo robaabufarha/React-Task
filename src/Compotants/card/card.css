@@ -26,3 +26,18 @@
   font-weight: 600;
   font-size: 15px;
 }
+.star-button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+@media only screen and (min-width: 400px) {
+  .star-button {
+    display: none;
+  }
+}

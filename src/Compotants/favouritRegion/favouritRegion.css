@@ -18,3 +18,32 @@
   padding-left: 0.5rem;
   background-color: var(--bg-components);
 }
+.sub-favourit-region {
+  height: 55vh;
+}
+.favourite-country {
+  align-items: center;
+}
+.cloned-content-container {
+  font-size: 13px;
+  font-weight: 800;
+}
+.delete-button {
+  position: relative;
+  margin-right: 1rem !important;
+  border: none;
+  background-color: var(--bg-all);
+  color: var(--bs-body-color);
+  border-radius: 50% !important;
+
+  font-size: 12px;
+  font-weight: 800;
+  width: 0.9rem;
+}
+.flag-image {
+  height: 38px;
+  width: 58px;
+  display: inline;
+  padding: 0.5rem;
+  border-radius: 13px;
+}

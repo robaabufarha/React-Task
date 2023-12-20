@@ -9,6 +9,23 @@
   font-weight: 600;
   margin-bottom: 0.4rem !important;
 }
+.border-countries {
+  display: inline;
+}
+.border-countries-container {
+  display: inline-block;
+  font-weight: 600;
+  margin-right: 1.3rem;
+  margin-top: 1.3rem;
+}
+.sub-border-countries-container {
+  display: inline-block;
+}
+.border-countries span {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-components);
+}
+
 @media only screen and (max-width: 1100px) {
   .details-container {
     grid-gap: 0rem;
