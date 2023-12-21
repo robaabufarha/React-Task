@@ -21,6 +21,7 @@ function Home() {
           placeholder="Search for a country ..."
           onSearch={(term) => setSearchTerm(term)}
         />
+       
         <DropdownList
           items={CountryRegions}
           defaultLabel="Filter by"

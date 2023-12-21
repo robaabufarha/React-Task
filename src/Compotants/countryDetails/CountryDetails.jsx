@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./countryDetails.css";
 import "../../pages/details/details.css";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import {getCountryByName} from "../../services/api"
 function CountryDetails() {
   const { countryName } = useParams();
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`https://restcountries.com/v3.1/name/${countryName}`)
-      .then(function (response) {
-        let result = response.data;
-        setCountrySelectedInfo(result[0]);
+    const fetchData = async () => {
+      try {
+        const countryData = await getCountryByName(countryName);
+        setCountrySelectedInfo(countryData);
         setErrorMessage("");
-      })
-      .catch(function (error) {
-        setErrorMessage("Error fetching country");
-        console.log(error);
-      });
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    };
+
+    fetchData();
   }, [countryName]);
 
   return (

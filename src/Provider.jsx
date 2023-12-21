@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-
+import { setLocalStorageData, getLocalStorageData } from "./services/localStorage"
 export const CustomStateContext = createContext();
 export const CustomDispatchContext = createContext();
 
 const initialState = {
-  customFavorites: JSON.parse(localStorage.getItem("storedFavorites")) || [],
+  customFavorites: getLocalStorageData("storedFavorites"),
 };
 
 const reducer = (state, action) => {
@@ -31,16 +31,22 @@ const reducer = (state, action) => {
       return state;
   }
 };
+const getInitialState = () =>{
+  const storedCountries = getLocalStorageData("storedFavorites");
+  return{
+    customFavorites: storedCountries,
+  };
+};
 
 export const CustomProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState,getInitialState);
 
   useEffect(() => {
-    localStorage.setItem(
-      "storedFavorites",
-      JSON.stringify(state.customFavorites)
-    );
-  }, [state.customFavorites]);
+  setLocalStorageData("storedFavorites", state.customFavorites);
+}, [state.customFavorites]);
+
+
+
 
   return (
     <CustomStateContext.Provider value={state}>

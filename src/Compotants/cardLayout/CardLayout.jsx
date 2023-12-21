@@ -1,73 +1,59 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../card/Card";
 import "./cardLayout.css";
-import { useCustomState, useCustomDispatch } from "../../Provider";
+import { useCustomState } from "../../Provider";
+import { fetchAllCountries, searchCountriesByName } from "../../services/api";
 
 function CardLayout({ searchTerm, regionFilter }) {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const { customFavorites } = useCustomState();
-  const dispatch = useCustomDispatch();
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const fetchAllData = () => {
+
+  const Countries = (term, regionFilter) => {
     setLoading(true);
     setErrorMessage("");
-
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
+    const searchPromise = term.trim() === "" ? fetchAllCountries() : searchCountriesByName(term);
+    console.log(term,"card")
+    
+    searchPromise
       .then((data) => {
         setCountries(data);
-        setLoading(false);
-      })
-      .catch(function (error) {
-        setErrorMessage("Error fetching countries");
-        console.error(error);
-        setLoading(false);
-      });
-  };
-
-  const searchCountries = (term, regionFilter) => {
-    setLoading(true);
-    setErrorMessage("");
-
-    const apiUrl = `https://restcountries.com/v3.1/name/${term}`;
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setCountries(data);
-
+       console.log(data);
         const filteredData = data.filter((country) => {
-          if (!regionFilter || regionFilter === "allRegions") {
+          if (regionFilter === "allRegions") {
             return true;
           } else if (regionFilter === "favourites") {
-            setFilteredCountries(customFavorites);
+            setCountries(customFavorites);
           } else {
             return country.region === regionFilter;
           }
         });
-
+  
         setFilteredCountries(filteredData);
         setLoading(false);
       })
-      .catch(function (error) {
-        console.error(error);
+      .catch(() => {
         setFilteredCountries([]);
-        setErrorMessage("Country not found");
+        setErrorMessage(term.trim() === "" ? "Error fetching countries" : "Country not found");
         setLoading(false);
       });
   };
+  
 
   useEffect(() => {
-    fetchAllData();
-  }, []);
+    let isMounted = true;
+     const debounceTimeout = setTimeout(() => {
+      Countries(searchTerm, regionFilter);
+     }, 500);
 
-  useEffect(() => {
-    if (searchTerm) {
-      searchCountries(searchTerm, regionFilter);
-    }
+    return () => {
+      isMounted = false;
+      clearTimeout(debounceTimeout);
+    };
   }, [searchTerm, regionFilter]);
+  
 
   useEffect(() => {
     if (Array.isArray(countries)) {

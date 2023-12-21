@@ -1,34 +1,46 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useDrop } from "react-dnd";
 import "./favouritRegion.css";
 import { CustomStateContext, CustomDispatchContext } from "../../Provider";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Button from "../button/Button"
 function FavouritReagion() {
   const { customFavorites } = useContext(CustomStateContext);
   const dispatch = useContext(CustomDispatchContext);
 
   const [{ isOver }, drop] = useDrop({
     accept: "div",
-    drop: (item) => addCountryToFavorite(item.id),
+    drop: (item) => handleDrop(item.id),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   });
 
-  const addCountryToFavorite = (country) => {
-    dispatch({ type: "ADD_FAVORITE", payload: country });
+  const handleDrop = (country) => {
+    console.log("Dropped country:", country);
+  
+    const isCountryInFavorites = customFavorites.some(
+      (favCountry) => favCountry.name.common === country.name.common
+    );
+  
+    if (isCountryInFavorites) {
+    
+     toast.error(`${country.name.common} already in favorites`);
+    
+    } else {
+      dispatch({ type: "ADD_FAVORITE", payload: country });
+    }
   };
+ 
 
   const handleDelete = (countryToDelete) => {
     dispatch({ type: "REMOVE_FAVORITE", payload: countryToDelete });
   };
 
-  useEffect(() => {
-    console.log("Custom favorites have changed:", customFavorites);
-  }, [customFavorites]);
-
   return (
     <div className="side-container">
+     <ToastContainer />
       <div className="fav-text sticky-top pt-3 pl-5">Favourites</div>
       <div
         ref={drop}
@@ -54,7 +66,7 @@ function FavouritReagion() {
             </div>
           ))
         ) : (
-          <h5>No favorite countries yet</h5>
+          <h5></h5>
         )}
       </div>
     </div>

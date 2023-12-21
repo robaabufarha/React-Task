@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Button({ buttonClassName, icon, text, action, linkTo, iconStyle }) {
+function Button({ buttonClassName, icon, text, action, linkTo, iconStyle,country }) {
   const getButtonContent = () => (
     <>
       {icon && <span className={iconStyle}>{icon}</span>}
@@ -16,7 +16,8 @@ function Button({ buttonClassName, icon, text, action, linkTo, iconStyle }) {
           {getButtonContent()}
         </Link>
       );
-    } else {
+    } 
+    else  {
       return (
         <button className={buttonClassName} onClick={action}>
           {getButtonContent()}
