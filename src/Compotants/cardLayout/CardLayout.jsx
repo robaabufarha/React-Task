@@ -10,9 +10,9 @@ function CardLayout({ searchTerm, regionFilter }) {
   const { customFavorites } = useCustomState();
   const [filteredCountries, setFilteredCountries] = useState([]);
 
-  const LOADING_MESSAGE = "Loading...";
-  const ERROR_MESSAGE = "Error fetching countries";
-  const NOT_FOUND_MESSAGE = "Country not found";
+  const loadingMessage = "Loading...";
+  const errorFetchingMessage = "Error fetching countries";
+  const notFoundMessage = "Country not found";
 
   const filterCountries = (data, regionFilter, customFavorites) => {
     return data.filter((country) => {
@@ -53,7 +53,7 @@ function CardLayout({ searchTerm, regionFilter }) {
         if (ignore) return;
 
         setFilteredCountries([]);
-        setErrorMessage(term.trim() === "" ? ERROR_MESSAGE : NOT_FOUND_MESSAGE);
+        setErrorMessage(term.trim() === "" ? errorFetchingMessage : notFoundMessage);
         setLoading(false);
       });
 
@@ -76,7 +76,7 @@ function CardLayout({ searchTerm, regionFilter }) {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">{LOADING_MESSAGE}</span>
+          <span className="visually-hidden">{loadingMessage}</span>
         </div>
       </div>
     );

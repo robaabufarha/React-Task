@@ -4,7 +4,7 @@ import "../../pages/details/details.css";
 import { useParams } from "react-router-dom";
 import { getCountryByName } from "../../services/api";
 
-const LOADING_MESSAGE = "Loading...";
+const  loadingMessage= "Loading...";
 
 function CountryDetails() {
   const { countryName } = useParams();
@@ -33,7 +33,7 @@ function CountryDetails() {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">{LOADING_MESSAGE}</span>
+          <span className="visually-hidden">{loadingMessage}</span>
         </div>
       </div>
     );
