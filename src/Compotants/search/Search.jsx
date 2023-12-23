@@ -4,12 +4,11 @@ import "./search.css";
 
 function Search({ placeholder, onSearch }) {
   const [searchValue, setSearchValue] = useState("");
-  
+
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
-    console.log(searchTerm,"search");
     setSearchValue(searchTerm);
-    onSearch(searchTerm); 
+    onSearch(searchTerm);
   };
 
   return (

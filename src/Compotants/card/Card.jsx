@@ -27,8 +27,8 @@ function Card({ country, isFavorite }) {
     dispatch({ type: "ADD_FAVORITE", payload: country });
   };
 
-  const handleDeleteFavorite = (countryToDelete) => {
-    dispatch({ type: "REMOVE_FAVORITE", payload: countryToDelete });
+  const handleDeleteFavorite = (country) => {
+    dispatch({ type: "REMOVE_FAVORITE", payload: country });
   };
 
   const handleDeleteOrAddFavorite = (country) => {

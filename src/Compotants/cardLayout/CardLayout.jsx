@@ -8,73 +8,75 @@ function CardLayout({ searchTerm, regionFilter }) {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const { customFavorites } = useCustomState();
-  const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
-  const Countries = (term, regionFilter) => {
+  const LOADING_MESSAGE = "Loading...";
+  const ERROR_MESSAGE = "Error fetching countries";
+  const NOT_FOUND_MESSAGE = "Country not found";
+
+  const filterCountries = (data, regionFilter, customFavorites) => {
+    return data.filter((country) => {
+      if (regionFilter === "allRegions") {
+        return true;
+      } else if (regionFilter === "favourites") {
+        return customFavorites.some(
+          (favCountry) => favCountry.name.common === country.name.common
+        );
+      } else {
+        return country.region === regionFilter;
+      }
+    });
+  };
+
+  const getCountries = (term, regionFilter) => {
     setLoading(true);
     setErrorMessage("");
-    const searchPromise = term.trim() === "" ? fetchAllCountries() : searchCountriesByName(term);
-    console.log(term,"card")
-    
+    let ignore = false;
+
+    const searchPromise =
+      term.trim() === "" ? fetchAllCountries() : searchCountriesByName(term);
     searchPromise
       .then((data) => {
-        setCountries(data);
-       console.log(data);
-        const filteredData = data.filter((country) => {
-          if (regionFilter === "allRegions") {
-            return true;
-          } else if (regionFilter === "favourites") {
-            setCountries(customFavorites);
-          } else {
-            return country.region === regionFilter;
-          }
-        });
-  
+        if (ignore) return;
+
+        setFilteredCountries(data);
+        const filteredData = filterCountries(
+          data,
+          regionFilter,
+          customFavorites
+        );
+
         setFilteredCountries(filteredData);
         setLoading(false);
       })
       .catch(() => {
+        if (ignore) return;
+
         setFilteredCountries([]);
-        setErrorMessage(term.trim() === "" ? "Error fetching countries" : "Country not found");
+        setErrorMessage(term.trim() === "" ? ERROR_MESSAGE : NOT_FOUND_MESSAGE);
         setLoading(false);
       });
-  };
-  
-
-  useEffect(() => {
-    let isMounted = true;
-     const debounceTimeout = setTimeout(() => {
-      Countries(searchTerm, regionFilter);
-     }, 500);
 
     return () => {
-      isMounted = false;
+      ignore = true;
+    };
+  };
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      getCountries(searchTerm, regionFilter);
+    }, 500);
+
+    return () => {
       clearTimeout(debounceTimeout);
     };
   }, [searchTerm, regionFilter]);
-  
-
-  useEffect(() => {
-    if (Array.isArray(countries)) {
-      if (regionFilter === "allRegions") {
-        setFilteredCountries(countries);
-      } else if (regionFilter === "favourites") {
-        setFilteredCountries(customFavorites);
-      } else {
-        const filtered = countries.filter(
-          (country) => country.region === regionFilter
-        );
-        setFilteredCountries(filtered);
-      }
-    }
-  }, [regionFilter, countries, customFavorites]);
 
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden">{LOADING_MESSAGE}</span>
         </div>
       </div>
     );

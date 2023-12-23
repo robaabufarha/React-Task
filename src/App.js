@@ -10,44 +10,27 @@ import NotFound from "./pages/pageNotFound/PageNotFound";
 import "bootstrap/dist/css/bootstrap.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { setLocalStorageData, getLocalStorageData } from "./services/localStorage"
-
+import {
+  setLocalStorageData,
+  getLocalStorageData,
+} from "./services/localStorage";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
+  const storedTheme = getLocalStorageData("theme") === true;
+  const [darkMode, setDarkMode] = useState(storedTheme);
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    setLocalStorageData("theme", darkMode);
+  };
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
     } else {
       document.body.classList.remove("dark-mode");
     }
+    setLocalStorageData("theme", darkMode);
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-  // const storedDarkMode = localStorage.getItem('theme') || false;
-  // console.log(storedDarkMode);
-  // const [darkMode, setDarkMode] = useState(storedDarkMode);
-
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     document.body.classList.add("dark-mode");
-  //   } else {
-  //     document.body.classList.remove("dark-mode");
-  //   }
-  //   localStorage.setItem("theme", darkMode);
-
-  // }, [darkMode]);
-
-
-  // const toggleDarkMode = () => {
-  //   setDarkMode(!darkMode);
-  //   localStorage.setItem("theme", darkMode);
-
-  // };
-  
   return (
     <DndProvider backend={HTML5Backend}>
       <Header>

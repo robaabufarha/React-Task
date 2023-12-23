@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Button({ buttonClassName, icon, text, action, linkTo, iconStyle,country }) {
+function Button({
+  buttonClassName,
+  icon,
+  text,
+  action,
+  linkTo,
+  iconStyle,
+  attribute,
+}) {
   const getButtonContent = () => (
     <>
       {icon && <span className={iconStyle}>{icon}</span>}
@@ -16,10 +24,14 @@ function Button({ buttonClassName, icon, text, action, linkTo, iconStyle,country
           {getButtonContent()}
         </Link>
       );
-    } 
-    else  {
+    } else {
       return (
-        <button className={buttonClassName} onClick={action}>
+        <button
+          className={buttonClassName}
+          onClick={() =>
+            action && typeof action === "function" ? action(attribute) : null
+          }
+        >
           {getButtonContent()}
         </button>
       );
