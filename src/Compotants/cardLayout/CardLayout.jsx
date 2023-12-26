@@ -32,14 +32,13 @@ function CardLayout({ searchTerm, regionFilter }) {
   const getCountries = (term, regionFilter) => {
     setLoading(true);
     setErrorMessage("");
-    let ignore = false;
+    
 
     const searchPromise =
       term.trim() === "" ? fetchAllCountries() : searchCountriesByName(term);
     searchPromise
       .then((data) => {
-        if (ignore) return;
-
+        
         setFilteredCountries(data);
         const filteredData = filterCountries(
           data,
@@ -51,16 +50,14 @@ function CardLayout({ searchTerm, regionFilter }) {
         setLoading(false);
       })
       .catch(() => {
-        if (ignore) return;
+        
 
         setFilteredCountries([]);
         setErrorMessage(term.trim() === "" ? errorFetchingMessage : notFoundMessage);
         setLoading(false);
       });
 
-    return () => {
-      ignore = true;
-    };
+   
   };
 
   useEffect(() => {

@@ -19,7 +19,7 @@
   background-color: var(--bg-components);
 }
 .sub-favourit-region {
-  height: 56.1vh;
+  height: calc(100vh - 17.6rem);
 }
 .favourite-country {
   align-items: center;
