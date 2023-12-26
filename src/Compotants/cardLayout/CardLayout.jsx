@@ -9,7 +9,9 @@ function CardLayout({ searchTerm, regionFilter }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { customFavorites } = useCustomState();
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const allRegions = "all";
+  const [searchResult, setSearchResult] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const allRegions = "No Filter";
   const favourites = "favourites";
   const loadingMessage = "Loading...";
   const errorFetchingMessage = "Error fetching countries";
@@ -29,46 +31,64 @@ function CardLayout({ searchTerm, regionFilter }) {
     });
   };
 
-  const getCountries = (term, regionFilter) => {
+  const getCountries = async (term) => {
     setLoading(true);
     setErrorMessage("");
-    
 
-    const searchPromise =
-      term.trim() === "" ? fetchAllCountries() : searchCountriesByName(term);
-    searchPromise
-      .then((data) => {
-        
-        setFilteredCountries(data);
-        const filteredData = filterCountries(
-          data,
-          regionFilter,
-          customFavorites
-        );
+    let data;
 
-        setFilteredCountries(filteredData);
+    if (term.trim() === "") {
+      if (countries.length === 0) {
+        try {
+          data = await fetchAllCountries();
+
+          setCountries(data);
+        } catch (error) {
+          console.error(error);
+          setErrorMessage(errorFetchingMessage);
+          setLoading(false);
+          data = [];
+        }
+      } else {
+        data = countries;
+      }
+    } else {
+      try {
+        data = await searchCountriesByName(term);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage(notFoundMessage);
         setLoading(false);
-      })
-      .catch(() => {
-        
+        data = [];
+      }
+    }
 
-        setFilteredCountries([]);
-        setErrorMessage(term.trim() === "" ? errorFetchingMessage : notFoundMessage);
-        setLoading(false);
-      });
+    setSearchResult(data);
+    if (regionFilter === allRegions) {
+      setFilteredCountries(data);
+    }
 
-   
+    setLoading(false);
   };
 
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
-      getCountries(searchTerm, regionFilter);
+      getCountries(searchTerm);
     }, 500);
 
     return () => {
       clearTimeout(debounceTimeout);
     };
-  }, [searchTerm, regionFilter]);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const filteredData = filterCountries(
+      searchResult,
+      regionFilter,
+      customFavorites
+    );
+    setFilteredCountries(filteredData);
+  }, [regionFilter, searchResult, customFavorites]);
 
   if (loading) {
     return (

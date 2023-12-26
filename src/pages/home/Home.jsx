@@ -9,7 +9,7 @@ import { CustomProvider } from "../../Provider";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("all");
+  const [selectedRegion, setSelectedRegion] = useState("No Filter");
   const homePlaceholder = "Search for a country ...";
   const handleRegionChange = (region) => {
     setSelectedRegion(region);

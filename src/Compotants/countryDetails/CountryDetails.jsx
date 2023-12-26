@@ -4,13 +4,14 @@ import "../../pages/details/details.css";
 import { useParams } from "react-router-dom";
 import { getCountryByName } from "../../services/api";
 
-const  loadingMessage= "Loading...";
+const loadingMessage = "Loading...";
 
 function CountryDetails() {
   const { countryName } = useParams();
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const errorFetchingMessage = "Error fetching country";
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       setLoading(true);
@@ -21,16 +22,17 @@ function CountryDetails() {
           setLoading(false);
         })
         .catch((error) => {
-          setErrorMessage(error.message);
+          console.error(error);
+          setErrorMessage(errorFetchingMessage);
           setLoading(false);
         });
     }, 500);
-  
+
     return () => {
       clearTimeout(debounceTimeout);
     };
   }, [countryName]);
-  
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">

@@ -2,15 +2,18 @@ import React, { useContext, useState } from "react";
 import { useDrop } from "react-dnd";
 import "./favouritRegion.css";
 import { CustomStateContext, CustomDispatchContext } from "../../Provider";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../button/Button";
-import { TfiClose } from 'react-icons/tfi';
+import { TfiClose } from "react-icons/tfi";
 function FavouritReagion() {
   let [isDragOver, setIsDragOver] = useState(false);
   const { customFavorites } = useContext(CustomStateContext);
   const dispatch = useContext(CustomDispatchContext);
-  const toastHelper = "The country which you are trying to add to favorites is already exist";
+  function handelToastHelper(country) {
+    const toastHelper = `${country} is already exist in favorites`;
+    return toastHelper;
+  }
   const [{ isOver }, drop] = useDrop({
     accept: "div",
     drop: (item) => handleDrop(item.id),
@@ -25,7 +28,7 @@ function FavouritReagion() {
     );
 
     if (isCountryInFavorites) {
-      toast.error(toastHelper);
+      toast.error(handelToastHelper(country.name.common));
     } else {
       dispatch({ type: "ADD_FAVORITE", payload: country });
     }
@@ -45,7 +48,6 @@ function FavouritReagion() {
       className="side-container"
       style={{ border: isDragOver ? "5px solid #27ae60" : "0px" }}
     >
-      
       <div className="fav-text sticky-top pt-3 pl-5">Favourites</div>
       <div
         ref={drop}
@@ -67,7 +69,7 @@ function FavouritReagion() {
               </span>
               <Button
                 buttonClassName="delete-button ms-auto"
-                 icon =  {<TfiClose />}
+                icon={<TfiClose />}
                 action={handleDelete}
                 attribute={country}
               />

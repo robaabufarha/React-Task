@@ -1,5 +1,3 @@
-// App.js
-
 import React from "react";
 import "./App.css";
 import Button from "./Compotants/button/Button";
@@ -12,11 +10,11 @@ import NotFound from "./pages/pageNotFound/PageNotFound";
 import "bootstrap/dist/css/bootstrap.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDarkMode } from "../src/services/theme";
-import { ToastContainer, toast } from "react-toastify";
+import { useTheme } from "../src/services/theme";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const App = () => {
-  const { toggleDarkMode } = useDarkMode();
+  const { toggleDarkMode } = useTheme();
 
   return (
     <DndProvider backend={HTML5Backend}>

@@ -3,12 +3,8 @@ import "./dropdown.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Dropdown } from "react-bootstrap";
 
-const DropdownList = ({
-  items,
-  defaultLabel = "Filter by",
-  onItemSelect,
-}) => {
-  const [selectedValue, setSelectedValue] = useState("all");
+const DropdownList = ({ items, defaultLabel = "Filter by", onItemSelect }) => {
+  const [selectedValue, setSelectedValue] = useState("No Filter");
 
   const handleSelect = (eventKey) => {
     setSelectedValue(eventKey);
@@ -21,11 +17,11 @@ const DropdownList = ({
         variant="success"
         className="pl-2 pr-2 text-start border-0"
       >
-        {selectedValue === "all" ? defaultLabel : selectedValue}
+        {selectedValue === "No Filter" ? defaultLabel : selectedValue}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item eventKey="all">{defaultLabel}</Dropdown.Item>
+        <Dropdown.Item eventKey="No Filter">{defaultLabel}</Dropdown.Item>
         {items.map((item) => (
           <Dropdown.Item
             key={item.value}

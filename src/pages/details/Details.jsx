@@ -5,7 +5,7 @@ import Button from "../../Compotants/button/Button";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 function Details() {
-  const backButtonText="Back";
+  const backButtonText = "Back";
   return (
     <div className="details-page">
       <div className="back-button-container">
