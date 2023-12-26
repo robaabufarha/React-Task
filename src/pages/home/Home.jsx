@@ -9,7 +9,7 @@ import { CustomProvider } from "../../Provider";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("allRegions");
+  const [selectedRegion, setSelectedRegion] = useState("all");
   const homePlaceholder = "Search for a country ...";
   const handleRegionChange = (region) => {
     setSelectedRegion(region);
@@ -26,7 +26,7 @@ function Home() {
         <DropdownList
           items={CountryRegions}
           defaultLabel="Filter by"
-          onRegionSelect={handleRegionChange}
+          onItemSelect={handleRegionChange}
         />
       </section>
 

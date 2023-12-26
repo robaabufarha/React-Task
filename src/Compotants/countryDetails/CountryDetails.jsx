@@ -11,24 +11,26 @@ function CountryDetails() {
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const fetchData = () => {
-    setLoading(true);
-    getCountryByName(countryName)
-      .then((countryData) => {
-        setCountrySelectedInfo(countryData);
-        setErrorMessage("");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setLoading(false);
-      });
-  };
-
   useEffect(() => {
-    fetchData();
+    const debounceTimeout = setTimeout(() => {
+      setLoading(true);
+      getCountryByName(countryName)
+        .then((countryData) => {
+          setCountrySelectedInfo(countryData);
+          setErrorMessage("");
+          setLoading(false);
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+          setLoading(false);
+        });
+    }, 500);
+  
+    return () => {
+      clearTimeout(debounceTimeout);
+    };
   }, [countryName]);
+  
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">

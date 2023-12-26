@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import {
   setLocalStorageData,
   getLocalStorageData,
-} from "./services/localStorage";
+} from "./services/storage";
 export const CustomStateContext = createContext();
 export const CustomDispatchContext = createContext();
 

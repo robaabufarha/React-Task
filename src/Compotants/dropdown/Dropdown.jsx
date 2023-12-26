@@ -6,13 +6,13 @@ import { Dropdown } from "react-bootstrap";
 const DropdownList = ({
   items,
   defaultLabel = "Filter by",
-  onRegionSelect,
+  onItemSelect,
 }) => {
-  const [selectedValue, setSelectedValue] = useState("allRegions");
+  const [selectedValue, setSelectedValue] = useState("all");
 
   const handleSelect = (eventKey) => {
     setSelectedValue(eventKey);
-    onRegionSelect(eventKey);
+    onItemSelect(eventKey);
   };
 
   return (
@@ -21,11 +21,11 @@ const DropdownList = ({
         variant="success"
         className="pl-2 pr-2 text-start border-0"
       >
-        {selectedValue === "allRegions" ? defaultLabel : selectedValue}
+        {selectedValue === "all" ? defaultLabel : selectedValue}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item eventKey="allRegions">{defaultLabel}</Dropdown.Item>
+        <Dropdown.Item eventKey="all">{defaultLabel}</Dropdown.Item>
         {items.map((item) => (
           <Dropdown.Item
             key={item.value}

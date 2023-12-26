@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+// App.js
+
+import React from "react";
 import "./App.css";
 import Button from "./Compotants/button/Button";
 import { HashRouter, Routes, Route } from "react-router-dom";
@@ -10,29 +12,15 @@ import NotFound from "./pages/pageNotFound/PageNotFound";
 import "bootstrap/dist/css/bootstrap.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import {
-  setLocalStorageData,
-  getLocalStorageData,
-} from "./services/localStorage";
-
+import { useDarkMode } from "../src/services/theme";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
-  const storedTheme = getLocalStorageData("theme") === true;
-  const [darkMode, setDarkMode] = useState(storedTheme);
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    setLocalStorageData("theme", darkMode);
-  };
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-    setLocalStorageData("theme", darkMode);
-  }, [darkMode]);
+  const { toggleDarkMode } = useDarkMode();
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <ToastContainer />
       <Header>
         <h1 className="m-0">Where in the world?</h1>
         <Button

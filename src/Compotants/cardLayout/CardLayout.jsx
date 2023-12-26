@@ -9,16 +9,17 @@ function CardLayout({ searchTerm, regionFilter }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { customFavorites } = useCustomState();
   const [filteredCountries, setFilteredCountries] = useState([]);
-
+  const allRegions = "all";
+  const favourites = "favourites";
   const loadingMessage = "Loading...";
   const errorFetchingMessage = "Error fetching countries";
   const notFoundMessage = "Country not found";
 
   const filterCountries = (data, regionFilter, customFavorites) => {
     return data.filter((country) => {
-      if (regionFilter === "allRegions") {
+      if (regionFilter === allRegions) {
         return true;
-      } else if (regionFilter === "favourites") {
+      } else if (regionFilter === favourites) {
         return customFavorites.some(
           (favCountry) => favCountry.name.common === country.name.common
         );
