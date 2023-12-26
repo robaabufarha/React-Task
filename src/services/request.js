@@ -8,7 +8,11 @@ export const request = async (url) => {
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
+      const errorMessage = `Error fetching all countries: ${error.message}`;
+       throw new Error(errorMessage);
      // alert("There are some issues in getting data, please try again!");
       return [];
     }
   };
+
+  
