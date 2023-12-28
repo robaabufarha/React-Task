@@ -30,7 +30,7 @@ const App = () => {
         />
       </Header>
 
-      <HashRouter>
+      <HashRouter basename="/React-Task">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:countryName" element={<Details />} />
